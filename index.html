@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ivan · Fotografia</title>
+<meta name="description" content="Portfolio fotografico di Ivan (@_ivan_foto): macchine, ritratti, natura, architettura e street.">
+<meta name="theme-color" content="#0b0b0c">
+<meta property="og:title" content="Ivan · Fotografia">
+<meta property="og:description" content="Macchine, ritratti, natura, architettura e street.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="nav" id="nav">
+  <a class="brand" href="#/" aria-label="Home"><img src="logo.png" alt="" width="28" height="38"><span>Ivan</span></a>
+  <nav class="menu" id="menu" aria-label="Principale"></nav>
+  <div class="social" id="social"></div>
+  <button class="burger" id="burger" aria-label="Apri menu" aria-expanded="false"><span></span><span></span></button>
+</header>
+<main id="view"><noscript><p style="padding:120px 24px">Per vedere il portfolio serve JavaScript attivo.</p></noscript></main>
+<footer><div class="wrap"><span id="copy"></span><span id="flinks"></span></div></footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Foto a schermo intero">
+  <div class="top"><span class="cnt" id="lbcnt"></span><button class="ib" id="lbclose" aria-label="Chiudi"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></button></div>
+  <button class="ib nv prev" id="lbprev" aria-label="Precedente"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button class="ib nv next" id="lbnext" aria-label="Successiva"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  <div class="stage" id="lbstage"><div class="spin"></div><img id="lbimg" alt="" draggable="false"></div>
+  <div class="bot"><span class="ttl" id="lbttl"></span><span id="lbcat"></span></div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>

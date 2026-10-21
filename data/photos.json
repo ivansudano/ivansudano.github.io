@@ -1,0 +1,644 @@
+{
+ "site": {
+  "name": "Ivan",
+  "handle": "_ivan_foto",
+  "tagline": "Fotografia di auto, ritratti, natura e città.",
+  "instagram": "https://www.instagram.com/_ivan_foto",
+  "tiktok": "https://www.tiktok.com/@_ivan_foto",
+  "headline": "Luce, motori e momenti.",
+  "aboutTitle": "Dietro l'obiettivo",
+  "about": "Fotografo auto, ritratti, paesaggi e cielo stellato. Cerco la luce giusta e l'attimo che racconta una storia. Per collaborazioni o stampe scrivimi su Instagram o TikTok.",
+  "hero": "macchine-13"
+ },
+ "categories": [
+  {
+   "id": "macchine",
+   "name": "Macchine",
+   "subs": [
+    {
+     "id": "monza-gt-open",
+     "name": "Monza GT Open",
+     "description": "Una giornata di gara a Monza.",
+     "cover": "macchine-13"
+    }
+   ],
+   "cover": "macchine-13"
+  },
+  {
+   "id": "ritratti",
+   "name": "Ritratti",
+   "subs": [],
+   "cover": "ritratti-01"
+  },
+  {
+   "id": "natura",
+   "name": "Natura",
+   "subs": [
+    {
+     "id": "cielo-stellato",
+     "name": "Cielo stellato",
+     "description": "Stelle, Luna e notti lunghe.",
+     "cover": "natura-13"
+    }
+   ],
+   "cover": "natura-08"
+  },
+  {
+   "id": "architettura",
+   "name": "Architettura",
+   "subs": [],
+   "cover": "architettura-09"
+  },
+  {
+   "id": "street",
+   "name": "Street",
+   "subs": [],
+   "cover": "street-03"
+  }
+ ],
+ "photos": [
+  {
+   "id": "macchine-01",
+   "category": "macchine",
+   "sub": "",
+   "title": "Ferrari",
+   "src": "foto/macchine-01.webp",
+   "thumb": "thumbs/macchine-01.webp",
+   "w": 1467,
+   "h": 2200,
+   "color": "#4d4a4b"
+  },
+  {
+   "id": "macchine-02",
+   "category": "macchine",
+   "sub": "",
+   "title": "Ferrari",
+   "src": "foto/macchine-02.webp",
+   "thumb": "thumbs/macchine-02.webp",
+   "w": 1876,
+   "h": 2200,
+   "color": "#373b37"
+  },
+  {
+   "id": "macchine-03",
+   "category": "macchine",
+   "sub": "",
+   "title": "",
+   "src": "foto/macchine-03.webp",
+   "thumb": "thumbs/macchine-03.webp",
+   "w": 1478,
+   "h": 2200,
+   "color": "#846c6a"
+  },
+  {
+   "id": "macchine-04",
+   "category": "macchine",
+   "sub": "",
+   "title": "",
+   "src": "foto/macchine-04.webp",
+   "thumb": "thumbs/macchine-04.webp",
+   "w": 1650,
+   "h": 2200,
+   "color": "#727272"
+  },
+  {
+   "id": "macchine-05",
+   "category": "macchine",
+   "sub": "",
+   "title": "Koenigsegg",
+   "src": "foto/macchine-05.webp",
+   "thumb": "thumbs/macchine-05.webp",
+   "w": 1920,
+   "h": 1280,
+   "color": "#686465"
+  },
+  {
+   "id": "macchine-06",
+   "category": "macchine",
+   "sub": "",
+   "title": "Koenigsegg",
+   "src": "foto/macchine-06.webp",
+   "thumb": "thumbs/macchine-06.webp",
+   "w": 1580,
+   "h": 2200,
+   "color": "#656d7b"
+  },
+  {
+   "id": "macchine-07",
+   "category": "macchine",
+   "sub": "",
+   "title": "Lamborghini Aventador SVJ",
+   "src": "foto/macchine-07.webp",
+   "thumb": "thumbs/macchine-07.webp",
+   "w": 1825,
+   "h": 2200,
+   "color": "#41423c"
+  },
+  {
+   "id": "macchine-08",
+   "category": "macchine",
+   "sub": "",
+   "title": "Lamborghini Aventador SVJ",
+   "src": "foto/macchine-08.webp",
+   "thumb": "thumbs/macchine-08.webp",
+   "w": 1920,
+   "h": 1280,
+   "color": "#504d45"
+  },
+  {
+   "id": "macchine-09",
+   "category": "macchine",
+   "sub": "",
+   "title": "Lamborghini Aventador SVJ",
+   "src": "foto/macchine-09.webp",
+   "thumb": "thumbs/macchine-09.webp",
+   "w": 1631,
+   "h": 2200,
+   "color": "#4e504b"
+  },
+  {
+   "id": "macchine-10",
+   "category": "macchine",
+   "sub": "",
+   "title": "Lamborghini Aventador SVJ",
+   "src": "foto/macchine-10.webp",
+   "thumb": "thumbs/macchine-10.webp",
+   "w": 1494,
+   "h": 2200,
+   "color": "#333c41"
+  },
+  {
+   "id": "macchine-11",
+   "category": "macchine",
+   "sub": "",
+   "title": "Nissan GT-R",
+   "src": "foto/macchine-11.webp",
+   "thumb": "thumbs/macchine-11.webp",
+   "w": 1920,
+   "h": 2191,
+   "color": "#554a41"
+  },
+  {
+   "id": "macchine-12",
+   "category": "macchine",
+   "sub": "monza-gt-open",
+   "title": "Monza GT Open",
+   "src": "foto/macchine-12.webp",
+   "thumb": "thumbs/macchine-12.webp",
+   "w": 1536,
+   "h": 1024,
+   "color": "#212b2f"
+  },
+  {
+   "id": "macchine-13",
+   "category": "macchine",
+   "sub": "monza-gt-open",
+   "title": "Monza GT Open",
+   "src": "foto/macchine-13.webp",
+   "thumb": "thumbs/macchine-13.webp",
+   "w": 2200,
+   "h": 1465,
+   "color": "#48564e"
+  },
+  {
+   "id": "macchine-14",
+   "category": "macchine",
+   "sub": "monza-gt-open",
+   "title": "Monza GT Open",
+   "src": "foto/macchine-14.webp",
+   "thumb": "thumbs/macchine-14.webp",
+   "w": 1465,
+   "h": 2200,
+   "color": "#293f3e"
+  },
+  {
+   "id": "macchine-15",
+   "category": "macchine",
+   "sub": "monza-gt-open",
+   "title": "Monza GT Open",
+   "src": "foto/macchine-15.webp",
+   "thumb": "thumbs/macchine-15.webp",
+   "w": 2200,
+   "h": 1465,
+   "color": "#253832"
+  },
+  {
+   "id": "macchine-16",
+   "category": "macchine",
+   "sub": "monza-gt-open",
+   "title": "Monza GT Open",
+   "src": "foto/macchine-16.webp",
+   "thumb": "thumbs/macchine-16.webp",
+   "w": 2200,
+   "h": 1465,
+   "color": "#3b473f"
+  },
+  {
+   "id": "macchine-17",
+   "category": "macchine",
+   "sub": "monza-gt-open",
+   "title": "Monza GT Open",
+   "src": "foto/macchine-17.webp",
+   "thumb": "thumbs/macchine-17.webp",
+   "w": 2200,
+   "h": 1464,
+   "color": "#263531"
+  },
+  {
+   "id": "macchine-18",
+   "category": "macchine",
+   "sub": "monza-gt-open",
+   "title": "Monza GT Open",
+   "src": "foto/macchine-18.webp",
+   "thumb": "thumbs/macchine-18.webp",
+   "w": 2200,
+   "h": 1465,
+   "color": "#3e4743"
+  },
+  {
+   "id": "macchine-19",
+   "category": "macchine",
+   "sub": "monza-gt-open",
+   "title": "Monza GT Open",
+   "src": "foto/macchine-19.webp",
+   "thumb": "thumbs/macchine-19.webp",
+   "w": 2200,
+   "h": 1465,
+   "color": "#3d4844"
+  },
+  {
+   "id": "macchine-20",
+   "category": "macchine",
+   "sub": "monza-gt-open",
+   "title": "Monza GT Open",
+   "src": "foto/macchine-20.webp",
+   "thumb": "thumbs/macchine-20.webp",
+   "w": 1464,
+   "h": 2200,
+   "color": "#3b4947"
+  },
+  {
+   "id": "macchine-21",
+   "category": "macchine",
+   "sub": "monza-gt-open",
+   "title": "Monza GT Open",
+   "src": "foto/macchine-21.webp",
+   "thumb": "thumbs/macchine-21.webp",
+   "w": 2200,
+   "h": 1465,
+   "color": "#303531"
+  },
+  {
+   "id": "ritratti-01",
+   "category": "ritratti",
+   "sub": "",
+   "title": "",
+   "src": "foto/ritratti-01.webp",
+   "thumb": "thumbs/ritratti-01.webp",
+   "w": 1464,
+   "h": 2200,
+   "color": "#959892"
+  },
+  {
+   "id": "ritratti-02",
+   "category": "ritratti",
+   "sub": "",
+   "title": "",
+   "src": "foto/ritratti-02.webp",
+   "thumb": "thumbs/ritratti-02.webp",
+   "w": 1465,
+   "h": 2200,
+   "color": "#85818c"
+  },
+  {
+   "id": "ritratti-03",
+   "category": "ritratti",
+   "sub": "",
+   "title": "",
+   "src": "foto/ritratti-03.webp",
+   "thumb": "thumbs/ritratti-03.webp",
+   "w": 1465,
+   "h": 2200,
+   "color": "#918e98"
+  },
+  {
+   "id": "ritratti-04",
+   "category": "ritratti",
+   "sub": "",
+   "title": "",
+   "src": "foto/ritratti-04.webp",
+   "thumb": "thumbs/ritratti-04.webp",
+   "w": 1465,
+   "h": 2200,
+   "color": "#95919a"
+  },
+  {
+   "id": "ritratti-05",
+   "category": "ritratti",
+   "sub": "",
+   "title": "",
+   "src": "foto/ritratti-05.webp",
+   "thumb": "thumbs/ritratti-05.webp",
+   "w": 1465,
+   "h": 2200,
+   "color": "#3f3b3e"
+  },
+  {
+   "id": "natura-01",
+   "category": "natura",
+   "sub": "",
+   "title": "",
+   "src": "foto/natura-01.webp",
+   "thumb": "thumbs/natura-01.webp",
+   "w": 1467,
+   "h": 2200,
+   "color": "#637266"
+  },
+  {
+   "id": "natura-02",
+   "category": "natura",
+   "sub": "",
+   "title": "",
+   "src": "foto/natura-02.webp",
+   "thumb": "thumbs/natura-02.webp",
+   "w": 1741,
+   "h": 2048,
+   "color": "#7f8283"
+  },
+  {
+   "id": "natura-03",
+   "category": "natura",
+   "sub": "",
+   "title": "",
+   "src": "foto/natura-03.webp",
+   "thumb": "thumbs/natura-03.webp",
+   "w": 1365,
+   "h": 2048,
+   "color": "#827163"
+  },
+  {
+   "id": "natura-04",
+   "category": "natura",
+   "sub": "",
+   "title": "",
+   "src": "foto/natura-04.webp",
+   "thumb": "thumbs/natura-04.webp",
+   "w": 1920,
+   "h": 1280,
+   "color": "#3c3a25"
+  },
+  {
+   "id": "natura-05",
+   "category": "natura",
+   "sub": "",
+   "title": "",
+   "src": "foto/natura-05.webp",
+   "thumb": "thumbs/natura-05.webp",
+   "w": 1616,
+   "h": 2200,
+   "color": "#323015"
+  },
+  {
+   "id": "natura-06",
+   "category": "natura",
+   "sub": "",
+   "title": "",
+   "src": "foto/natura-06.webp",
+   "thumb": "thumbs/natura-06.webp",
+   "w": 1920,
+   "h": 1280,
+   "color": "#635945"
+  },
+  {
+   "id": "natura-07",
+   "category": "natura",
+   "sub": "",
+   "title": "",
+   "src": "foto/natura-07.webp",
+   "thumb": "thumbs/natura-07.webp",
+   "w": 1920,
+   "h": 1951,
+   "color": "#1a1f21"
+  },
+  {
+   "id": "natura-08",
+   "category": "natura",
+   "sub": "",
+   "title": "",
+   "src": "foto/natura-08.webp",
+   "thumb": "thumbs/natura-08.webp",
+   "w": 1920,
+   "h": 1508,
+   "color": "#68633c"
+  },
+  {
+   "id": "natura-09",
+   "category": "natura",
+   "sub": "",
+   "title": "",
+   "src": "foto/natura-09.webp",
+   "thumb": "thumbs/natura-09.webp",
+   "w": 1365,
+   "h": 2048,
+   "color": "#7f7762"
+  },
+  {
+   "id": "natura-10",
+   "category": "natura",
+   "sub": "",
+   "title": "",
+   "src": "foto/natura-10.webp",
+   "thumb": "thumbs/natura-10.webp",
+   "w": 1467,
+   "h": 2200,
+   "color": "#1f1e12"
+  },
+  {
+   "id": "natura-11",
+   "category": "natura",
+   "sub": "",
+   "title": "",
+   "src": "foto/natura-11.webp",
+   "thumb": "thumbs/natura-11.webp",
+   "w": 1467,
+   "h": 2200,
+   "color": "#2f0e0f"
+  },
+  {
+   "id": "natura-12",
+   "category": "natura",
+   "sub": "cielo-stellato",
+   "title": "Cielo stellato",
+   "src": "foto/natura-12.webp",
+   "thumb": "thumbs/natura-12.webp",
+   "w": 896,
+   "h": 1195,
+   "color": "#102639"
+  },
+  {
+   "id": "natura-13",
+   "category": "natura",
+   "sub": "cielo-stellato",
+   "title": "",
+   "src": "foto/natura-13.webp",
+   "thumb": "thumbs/natura-13.webp",
+   "w": 1650,
+   "h": 2200,
+   "color": "#465158"
+  },
+  {
+   "id": "natura-14",
+   "category": "natura",
+   "sub": "cielo-stellato",
+   "title": "",
+   "src": "foto/natura-14.webp",
+   "thumb": "thumbs/natura-14.webp",
+   "w": 1650,
+   "h": 2200,
+   "color": "#272a31"
+  },
+  {
+   "id": "architettura-01",
+   "category": "architettura",
+   "sub": "",
+   "title": "Barcellona",
+   "src": "foto/architettura-01.webp",
+   "thumb": "thumbs/architettura-01.webp",
+   "w": 1465,
+   "h": 2200,
+   "color": "#504235"
+  },
+  {
+   "id": "architettura-02",
+   "category": "architettura",
+   "sub": "",
+   "title": "Barcellona",
+   "src": "foto/architettura-02.webp",
+   "thumb": "thumbs/architettura-02.webp",
+   "w": 1465,
+   "h": 2200,
+   "color": "#423b37"
+  },
+  {
+   "id": "architettura-03",
+   "category": "architettura",
+   "sub": "",
+   "title": "Barcellona",
+   "src": "foto/architettura-03.webp",
+   "thumb": "thumbs/architettura-03.webp",
+   "w": 1920,
+   "h": 1278,
+   "color": "#2d2828"
+  },
+  {
+   "id": "architettura-04",
+   "category": "architettura",
+   "sub": "",
+   "title": "",
+   "src": "foto/architettura-04.webp",
+   "thumb": "thumbs/architettura-04.webp",
+   "w": 1650,
+   "h": 2200,
+   "color": "#4d4431"
+  },
+  {
+   "id": "architettura-05",
+   "category": "architettura",
+   "sub": "",
+   "title": "",
+   "src": "foto/architettura-05.webp",
+   "thumb": "thumbs/architettura-05.webp",
+   "w": 1650,
+   "h": 2200,
+   "color": "#58554a"
+  },
+  {
+   "id": "architettura-06",
+   "category": "architettura",
+   "sub": "",
+   "title": "Londra",
+   "src": "foto/architettura-06.webp",
+   "thumb": "thumbs/architettura-06.webp",
+   "w": 1465,
+   "h": 2200,
+   "color": "#64848b"
+  },
+  {
+   "id": "architettura-07",
+   "category": "architettura",
+   "sub": "",
+   "title": "Londra",
+   "src": "foto/architettura-07.webp",
+   "thumb": "thumbs/architettura-07.webp",
+   "w": 1920,
+   "h": 1278,
+   "color": "#5e534c"
+  },
+  {
+   "id": "architettura-08",
+   "category": "architettura",
+   "sub": "",
+   "title": "Piccadilly Circus",
+   "src": "foto/architettura-08.webp",
+   "thumb": "thumbs/architettura-08.webp",
+   "w": 1920,
+   "h": 1278,
+   "color": "#504239"
+  },
+  {
+   "id": "architettura-09",
+   "category": "architettura",
+   "sub": "",
+   "title": "Sagrada Família",
+   "src": "foto/architettura-09.webp",
+   "thumb": "thumbs/architettura-09.webp",
+   "w": 1465,
+   "h": 2200,
+   "color": "#757b7e"
+  },
+  {
+   "id": "street-01",
+   "category": "street",
+   "sub": "",
+   "title": "",
+   "src": "foto/street-01.webp",
+   "thumb": "thumbs/street-01.webp",
+   "w": 1920,
+   "h": 1278,
+   "color": "#212420"
+  },
+  {
+   "id": "street-02",
+   "category": "street",
+   "sub": "",
+   "title": "",
+   "src": "foto/street-02.webp",
+   "thumb": "thumbs/street-02.webp",
+   "w": 1920,
+   "h": 1278,
+   "color": "#414f51"
+  },
+  {
+   "id": "street-03",
+   "category": "street",
+   "sub": "",
+   "title": "",
+   "src": "foto/street-03.webp",
+   "thumb": "thumbs/street-03.webp",
+   "w": 1920,
+   "h": 1472,
+   "color": "#292929"
+  },
+  {
+   "id": "street-04",
+   "category": "street",
+   "sub": "",
+   "title": "",
+   "src": "foto/street-04.webp",
+   "thumb": "thumbs/street-04.webp",
+   "w": 1920,
+   "h": 1278,
+   "color": "#414141"
+  }
+ ]
+}
