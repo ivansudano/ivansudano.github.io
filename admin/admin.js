@@ -281,11 +281,24 @@ function paneCat() {
 
 /* ---------- profilo ---------- */
 function paneProfilo() {
-  const s = data.site;
+  const s = data.site; const ip = s.igPost = s.igPost || {enabled: false, url: '', caption: '', photo: ''};
   const F = (k, l, ta) => `<label class="f"><span>${l}</span>${ta ? `<textarea data-k="${k}">${esc(s[k] || '')}</textarea>` : `<input type="text" data-k="${k}" value="${esc(s[k] || '')}">`}</label>`;
+  const opts = data.photos.map(p => `<option value="${esc(p.id)}" ${p.id === ip.photo ? 'selected' : ''}>${esc(catName(p.category))} · ${esc(p.title || p.id)}${pending[p.id] ? ' (nuova)' : ''}</option>`).join('');
+  const prev = () => { const p = data.photos.find(x => x.id === ip.photo); return p ? `<img src="${esc(thumbSrc(p))}" alt="" style="width:110px;height:110px;object-fit:cover;border-radius:12px;margin-bottom:12px">` : ''; };
   $('#pane').innerHTML = `<div class="cat" style="max-width:640px">${F('name', 'Nome')}${F('headline', 'Titolo grande in home')}${F('tagline', 'Sottotitolo')}${F('aboutTitle', 'Titolo sezione “Chi sono”')}${F('about', 'Testo “Chi sono”', 1)}
-    ${F('instagram', 'Link Instagram')}${F('tiktok', 'Link TikTok')}</div>`;
-  $('#pane').oninput = e => { const k = e.target.dataset.k; if (k) { s[k] = e.target.value; mark(); } };
+    ${F('instagram', 'Link Instagram')}${F('tiktok', 'Link TikTok')}</div>
+    <div class="cat" style="max-width:640px"><h3 style="font-size:1.3rem;margin-bottom:6px">Ultimo post Instagram</h3>
+      <p class="hint" style="margin-bottom:14px">Sul sito compare una piccola card per qualche secondo, poi scompare (una volta a visita). Quando pubblichi un nuovo post su Instagram, aggiorna qui link e foto.</p>
+      <label class="chk" style="margin:0 0 14px"><input type="checkbox" data-ip="enabled" ${ip.enabled ? 'checked' : ''}><span>Mostra la card sul sito</span></label>
+      <label class="f"><span>Link del post (https://www.instagram.com/p/…)</span><input type="text" data-ip="url" value="${esc(ip.url)}" placeholder="https://www.instagram.com/p/XXXXXXXX/"></label>
+      <label class="f"><span>Foto da mostrare (la stessa del post)</span><select data-ip="photo"><option value="">— scegli —</option>${opts}</select></label>
+      <div id="igprev">${prev()}</div>
+      <label class="f"><span>Testo breve (facoltativo)</span><input type="text" data-ip="caption" value="${esc(ip.caption)}" maxlength="90" placeholder="es. Nuovo scatto da Monza"></label></div>`;
+  $('#pane').oninput = e => {
+    const k = e.target.dataset.k, i = e.target.dataset.ip;
+    if (k) { s[k] = e.target.value; mark(); }
+    if (i) { ip[i] = i === 'enabled' ? e.target.checked : e.target.value; if (i === 'photo') $('#igprev').innerHTML = prev(); mark(); }
+  };
 }
 
 /* ---------- publish ---------- */

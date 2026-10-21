@@ -236,8 +236,25 @@ const end = () => {
 stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end);
 stage.addEventListener('click', e => { if (e.target === stage && Math.abs(dx) < 5) closeLB(); });
 
+
+/* ---------- card "ultimo post Instagram": compare, resta un po' e scompare ---------- */
+function igCard() {
+  const ip = (D.site || {}).igPost || {};
+  const p = byId[ip.photo];
+  let host = ''; try { host = new URL(ip.url).hostname; } catch {}
+  if (!ip.enabled || !p || !/(^|\.)instagram\.com$/.test(host)) return;
+  try { if (sessionStorage.getItem('igcard') === (ip.url + p.id)) return; } catch {}
+  const el = document.createElement('div'); el.className = 'igc'; el.setAttribute('role', 'complementary'); el.setAttribute('aria-label', 'Ultimo post su Instagram');
+  el.innerHTML = `<a class="cv" href="${esc(ip.url)}" target="_blank" rel="noopener"><img src="${esc(p.thumb)}" alt=""><span class="tx"><span class="t">${IG} Ultimo post</span><span class="cp">${esc(ip.caption || 'Guarda il mio ultimo post su Instagram')}</span><span class="go">Apri su Instagram →</span></span></a><button class="x" aria-label="Chiudi">×</button><i class="bar"></i>`;
+  document.body.append(el);
+  const hide = () => { el.classList.remove('show'); try { sessionStorage.setItem('igcard', ip.url + p.id); } catch {} setTimeout(() => el.remove(), 900); };
+  el.querySelector('.x').onclick = hide;
+  el.querySelector('.bar').addEventListener('animationend', hide);
+  setTimeout(() => requestAnimationFrame(() => el.classList.add('show')), 3500);
+}
+
 /* ---------- start ---------- */
-load().then(() => { chrome(); route(); }).catch(err => {
+load().then(() => { chrome(); route(); igCard(); }).catch(err => {
   view.innerHTML = '<section class="page"><div class="wrap"><h1>Ops</h1><p class="sub">Non riesco a caricare le foto. Riprova tra poco.</p></div></section>'; console.error(err);
 });
 })();
