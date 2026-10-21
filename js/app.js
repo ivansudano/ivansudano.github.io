@@ -4,6 +4,7 @@ const $ = (s, r = document) => r.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const IG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>';
 const TT = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.2v13.4a2.900 2.900 0 1 1-2.900-2.900c.3 0 .6 0 .8.100V9.300a6.200 6.200 0 1 0 5.300 6.100V8.600a7.800 7.800 0 0 0 4.400 1.400V6.800a4.600 4.600 0 0 1-4.400-4.800z"/></svg>';
+const hdl = u => String(u || '').replace(/[?#].*$/, '').replace(/\/$/, '').split('/').pop().replace(/^@/, '');
 const ARROW = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
 const ICO = {
@@ -41,9 +42,9 @@ function chrome() {
   $('#menu').innerHTML = links.map(([h, t, k, n]) => `<a href="${h}" data-nav>${ico(k)}<span class="ml">${esc(t)}</span>${n !== '' ? `<span class="mc">${n}</span>` : ''}</a>`).join('') +
     `<div class="m-social"><a href="${esc(s.instagram)}" target="_blank" rel="noopener">${IG}<span>Instagram</span></a><a href="${esc(s.tiktok)}" target="_blank" rel="noopener">${TT}<span>TikTok</span></a></div>`;
   $('#social').innerHTML =
-    `<a href="${esc(s.instagram)}" target="_blank" rel="noopener" aria-label="Instagram @${esc(s.handle)}">${IG}</a>` +
-    `<a href="${esc(s.tiktok)}" target="_blank" rel="noopener" aria-label="TikTok @${esc(s.handle)}">${TT}</a>`;
-  $('#copy').textContent = `© ${new Date().getFullYear()} ${s.name} · @${s.handle}`;
+    `<a href="${esc(s.instagram)}" target="_blank" rel="noopener" aria-label="Instagram @${esc(hdl(s.instagram))}">${IG}</a>` +
+    `<a href="${esc(s.tiktok)}" target="_blank" rel="noopener" aria-label="TikTok @${esc(hdl(s.tiktok))}">${TT}</a>`;
+  $('#copy').textContent = `© ${new Date().getFullYear()} ${s.name} · @${hdl(s.instagram)}`;
   $('#flinks').innerHTML = `<a href="${esc(s.instagram)}" target="_blank" rel="noopener">Instagram</a> &nbsp;·&nbsp; <a href="${esc(s.tiktok)}" target="_blank" rel="noopener">TikTok</a>`;
 }
 function markNav(hash) {
@@ -110,7 +111,7 @@ function home() {
   <section class="hero" style="--ar:${hero.w}/${hero.h};${hero.focus ? `--focus:${esc(hero.focus)}` : ""}">
     <img class="hero-img" src="${esc(hero.src)}" alt="" fetchpriority="high">
     <div class="wrap hero-inner">
-      <span class="eyebrow">@${esc(s.handle)}</span>
+      <span class="eyebrow">@${esc(hdl(s.instagram))}</span>
       <h1>${esc(s.headline || s.name)}</h1>
       <p class="tag">${esc(s.tagline)}</p>
       <div class="cta"><a class="btn" href="#portfolio" data-scroll>Esplora il portfolio ${ARROW}</a><a class="btn ghost" href="#/c/all">Tutte le foto</a></div>
@@ -121,8 +122,8 @@ function home() {
   <section class="block" id="contatti" style="padding-top:0"><div class="wrap about">
     <div><span class="eyebrow">Chi sono</span><h2>${esc(s.aboutTitle || 'Dietro l\'obiettivo')}</h2><p>${esc(s.about || '')}</p></div>
     <div class="links">
-      <a href="${esc(s.instagram)}" target="_blank" rel="noopener"><span>Instagram<small>@${esc(s.handle)}</small></span>${IG}</a>
-      <a href="${esc(s.tiktok)}" target="_blank" rel="noopener"><span>TikTok<small>@${esc(s.handle)}</small></span>${TT}</a>
+      <a href="${esc(s.instagram)}" target="_blank" rel="noopener"><span>Instagram<small>@${esc(hdl(s.instagram))}</small></span>${IG}</a>
+      <a href="${esc(s.tiktok)}" target="_blank" rel="noopener"><span>TikTok<small>@${esc(hdl(s.tiktok))}</small></span>${TT}</a>
     </div></div></section>`;
   const sc = view.querySelector('[data-scroll]');
   sc.onclick = e => { e.preventDefault(); $('#portfolio').scrollIntoView({behavior: 'smooth'}); };

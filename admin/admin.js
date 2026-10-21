@@ -284,7 +284,7 @@ function paneProfilo() {
   const s = data.site;
   const F = (k, l, ta) => `<label class="f"><span>${l}</span>${ta ? `<textarea data-k="${k}">${esc(s[k] || '')}</textarea>` : `<input type="text" data-k="${k}" value="${esc(s[k] || '')}">`}</label>`;
   $('#pane').innerHTML = `<div class="cat" style="max-width:640px">${F('name', 'Nome')}${F('headline', 'Titolo grande in home')}${F('tagline', 'Sottotitolo')}${F('aboutTitle', 'Titolo sezione “Chi sono”')}${F('about', 'Testo “Chi sono”', 1)}
-    ${F('handle', 'Username social (senza @)')}${F('instagram', 'Link Instagram')}${F('tiktok', 'Link TikTok')}</div>`;
+    ${F('instagram', 'Link Instagram')}${F('tiktok', 'Link TikTok')}</div>`;
   $('#pane').oninput = e => { const k = e.target.dataset.k; if (k) { s[k] = e.target.value; mark(); } };
 }
 
