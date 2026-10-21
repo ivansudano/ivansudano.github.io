@@ -8,7 +8,7 @@
   "headline": "Luce, motori e momenti.",
   "aboutTitle": "Dietro l'obiettivo",
   "about": "Fotografo auto, ritratti, paesaggi e cielo stellato. Cerco la luce giusta e l'attimo che racconta una storia. Per collaborazioni o stampe scrivimi su Instagram o TikTok.",
-  "hero": "macchine-13"
+  "hero": "natura-06"
  },
  "categories": [
   {
@@ -110,7 +110,8 @@
    "thumb": "thumbs/macchine-05.webp",
    "w": 1920,
    "h": 1280,
-   "color": "#686465"
+   "color": "#686465",
+   "focus": "49% 50%"
   },
   {
    "id": "macchine-06",
