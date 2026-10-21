@@ -6,6 +6,18 @@ const IG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wi
 const TT = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.2v13.4a2.900 2.900 0 1 1-2.900-2.900c.3 0 .6 0 .8.100V9.300a6.200 6.200 0 1 0 5.300 6.100V8.600a7.800 7.800 0 0 0 4.400 1.400V6.800a4.600 4.600 0 0 1-4.400-4.800z"/></svg>';
 const ARROW = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
+const ICO = {
+  home: '<path d="M3 11l9-8 9 8M5 10v10h14V10"/>',
+  macchine: '<path d="M4 17h16M3.5 13l2-5h13l2 5v4h-17zM7.5 13h.01M16.5 13h.01"/>',
+  ritratti: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/>',
+  natura: '<path d="M3 19l6-10 4 6 2-3 6 7z"/><circle cx="17" cy="6" r="1.5"/>',
+  architettura: '<path d="M5 21V5l7-2 7 2v16M3 21h18M9 9h2M13 9h2M9 13h2M13 13h2M10 21v-4h4v4"/>',
+  street: '<path d="M12 21s-6-5.500-6-10a6 6 0 0 1 12 0c0 4.500-6 10-6 10z"/><circle cx="12" cy="11" r="2"/>',
+  tutte: '<rect x="4" y="4" width="7" height="7" rx="1.500"/><rect x="13" y="4" width="7" height="7" rx="1.500"/><rect x="4" y="13" width="7" height="7" rx="1.500"/><rect x="13" y="13" width="7" height="7" rx="1.500"/>',
+  cam: '<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.500"/>'
+};
+const ico = k => `<svg class="mi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICO[k] || ICO.cam}</svg>`;
+
 let D = null, byId = {}, view = $('#view');
 
 async function load() {
@@ -25,9 +37,9 @@ const coverOf = (cat, sub) => {
 /* ---------- chrome ---------- */
 function chrome() {
   const s = D.site;
-  const links = [['#/', 'Home'], ...D.categories.map(c => [`#/c/${c.id}`, c.name]), ['#/c/all', 'Tutte']];
-  $('#menu').innerHTML = links.map(([h, t]) => `<a href="${h}" data-nav>${esc(t)}</a>`).join('') +
-    `<div class="m-social"><a href="${esc(s.instagram)}" target="_blank" rel="noopener">Instagram</a><a href="${esc(s.tiktok)}" target="_blank" rel="noopener">TikTok</a></div>`;
+  const links = [['#/', 'Home', 'home', ''], ...D.categories.map(c => [`#/c/${c.id}`, c.name, c.id, catPhotos(c.id).length]), ['#/c/all', 'Tutte le foto', 'tutte', D.photos.length]];
+  $('#menu').innerHTML = links.map(([h, t, k, n]) => `<a href="${h}" data-nav>${ico(k)}<span class="ml">${esc(t)}</span>${n !== '' ? `<span class="mc">${n}</span>` : ''}</a>`).join('') +
+    `<div class="m-social"><a href="${esc(s.instagram)}" target="_blank" rel="noopener">${IG}<span>Instagram</span></a><a href="${esc(s.tiktok)}" target="_blank" rel="noopener">${TT}<span>TikTok</span></a></div>`;
   $('#social').innerHTML =
     `<a href="${esc(s.instagram)}" target="_blank" rel="noopener" aria-label="Instagram @${esc(s.handle)}">${IG}</a>` +
     `<a href="${esc(s.tiktok)}" target="_blank" rel="noopener" aria-label="TikTok @${esc(s.handle)}">${TT}</a>`;
@@ -95,7 +107,7 @@ function home() {
       <div class="info"><span class="eyebrow">${esc(c.name)} · ${l.length} foto</span><h3>${esc(sb.name)}</h3>${sb.description ? `<p>${esc(sb.description)}</p>` : ''}<span class="go">Guarda il progetto →</span></div></a>`).join('') +
     `</div></div></section>` : '';
   view.innerHTML = `
-  <section class="hero" ${photoFocus(hero)}>
+  <section class="hero" style="--ar:${hero.w}/${hero.h};${hero.focus ? `--focus:${esc(hero.focus)}` : ""}">
     <img class="hero-img" src="${esc(hero.src)}" alt="" fetchpriority="high">
     <div class="wrap hero-inner">
       <span class="eyebrow">@${esc(s.handle)}</span>

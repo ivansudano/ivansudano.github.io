@@ -38,14 +38,21 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-hei
 .burger span:nth-child(1){top:16px}.burger span:nth-child(2){top:25px}
 .burger[aria-expanded=true] span:nth-child(1){top:20px;transform:rotate(45deg)}
 .burger[aria-expanded=true] span:nth-child(2){top:20px;transform:rotate(-45deg)}
+.menu .mi,.menu .mc{display:none}
 @media(max-width:860px){
   .burger{display:block}
   .social{display:none}
-  .menu{position:fixed;inset:0;background:rgba(11,11,12,.97);flex-direction:column;justify-content:center;align-items:flex-start;gap:6px;padding:0 var(--pad);opacity:0;pointer-events:none;transition:opacity .35s;margin:0}
+  .menu{position:fixed;inset:0;background:rgba(11,11,12,.98);flex-direction:column;justify-content:flex-start;align-items:stretch;gap:0;padding:92px var(--pad) calc(24px + env(safe-area-inset-bottom));opacity:0;pointer-events:none;transition:opacity .35s;margin:0;overflow-y:auto}
   .menu.open{opacity:1;pointer-events:auto}
-  .menu a{font-family:var(--serif);font-size:2.4rem;color:#fff;padding:4px 0}
-  .menu a::after{display:none}
-  .menu .m-social{display:flex;gap:18px;margin-top:28px;font-family:var(--sans);font-size:1rem;color:var(--muted)}
+  .menu>a{display:flex;align-items:center;gap:16px;padding:15px 4px;border-bottom:1px solid var(--line);font-size:1.08rem;color:#f2f0ea}
+  .menu>a::after{display:none}
+  .menu>a .mi{display:block;width:22px;height:22px;flex:none;color:var(--accent)}
+  .menu>a .ml{flex:1}
+  .menu>a .mc{display:block;font-size:.8rem;color:var(--muted);letter-spacing:.04em}
+  .menu>a.on{color:var(--accent)}
+  .menu .m-social{display:flex;gap:10px;margin-top:auto;padding-top:28px}
+  .menu .m-social a{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 10px;border:1px solid var(--line);border-radius:99px;font-size:.92rem;color:#f2f0ea}
+  .menu .m-social svg{width:19px;height:19px}
   .nav{z-index:60}
 }
 .m-social{display:none}
@@ -173,3 +180,12 @@ footer a:hover{color:#fff}
 .fade-view{animation:viewIn .6s var(--ease) both}
 @keyframes viewIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.ph{opacity:1;transform:none}}
+
+/* HERO su telefono: la foto si vede intera, non tagliata */
+@media(max-width:700px){
+  .hero{background:var(--bg);display:flex;flex-direction:column;justify-content:flex-start;height:auto;min-height:0;padding-top:76px;overflow:hidden}
+  .hero-img{position:relative;inset:auto;display:block;width:100%;height:auto;aspect-ratio:var(--ar);max-height:62svh;object-fit:cover;object-position:var(--focus,50% 50%);-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}
+  .hero::after{background:linear-gradient(180deg,rgba(11,11,12,.5) 0,rgba(11,11,12,0) 14%)}
+  .hero-inner{margin-top:-28px;padding-bottom:40px}
+  .hero h1{font-size:2.6rem;margin:10px 0 12px}
+}
