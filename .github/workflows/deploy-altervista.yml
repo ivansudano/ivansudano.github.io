@@ -1,0 +1,39 @@
+name: Aggiorna Altervista
+
+# Ad ogni modifica sul ramo main, carica su Altervista solo il CODICE del sito
+# (pagine, stile, script, icone). Foto, elenco foto, password e admin di Altervista
+# NON vengono mai toccati: si gestiscono dall'admin di Altervista.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-altervista
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Carica su Altervista via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.portfolioivan.altervista.org
+          port: 21
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          security: loose
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            README.md
+            .nojekyll
+            data/**
+            foto/**
+            thumbs/**
+            admin/**
