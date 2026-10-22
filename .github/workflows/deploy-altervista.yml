@@ -22,7 +22,7 @@ jobs:
         with:
           server: ftp.portfolioivan.altervista.org
           port: 21
-          username: ${{ secrets.FTP_USERNAME }}
+          username: portfolioivan
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           security: loose
