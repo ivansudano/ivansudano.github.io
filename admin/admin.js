@@ -162,7 +162,7 @@ function drawGrid() {
   const list = data.photos.filter(p => filter === 'all' || p.category === filter);
   $('#cnt').textContent = `${list.length} foto`;
   $('#grid').innerHTML = list.map(p => {
-    const tags = [pending[p.id] ? '<span class="tag new">Nuova</span>' : '', data.site.hero === p.id ? '<span class="tag">Copertina home</span>' : '',
+    const tags = [pending[p.id] ? '<span class="tag new">Nuova</span>' : '', 
       (data.categories.find(c => c.id === p.category) || {}).cover === p.id ? '<span class="tag">Cover categoria</span>' : ''].join('');
     return `<div class="tile" data-id="${esc(p.id)}"><div class="im" data-edit><img src="${esc(thumbSrc(p))}" alt="" loading="lazy"><div class="tags">${tags}</div></div>
       <div class="meta">${esc(p.title) || '<span class="hint">senza titolo</span>'}<small>${esc(catName(p.category))}${p.sub ? ' · ' + esc(subName(p.category, p.sub)) : ''}</small></div>
@@ -187,7 +187,7 @@ function delPhoto(id) {
   data.photos = data.photos.filter(x => x.id !== id);
   if (pending[id]) { URL.revokeObjectURL(pending[id].thumbUrl); delete pending[id]; } else removed.push(p.src, p.thumb);
   data.categories.forEach(c => { if (c.cover === id) delete c.cover; c.subs.forEach(s => { if (s.cover === id) delete s.cover; }); });
-  if (data.site.hero === id) data.site.hero = (data.photos[0] || {}).id || '';
+  
   mark(); drawGrid();
 }
 function editPhoto(id) {
@@ -202,14 +202,13 @@ function editPhoto(id) {
       <label class="f"><span>Categoria</span><select id="ec">${data.categories.map(c => `<option value="${esc(c.id)}" ${c.id === p.category ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select></label>
       <label class="f"><span>Progetto / sottocartella</span><select id="es"><option value="">— nessuno —</option>${subs.map(s => `<option value="${esc(s.id)}" ${s.id === p.sub ? 'selected' : ''}>${esc(s.name)}</option>`).join('')}</select></label>
       <p class="hint" style="margin-bottom:10px">Tocca la foto per scegliere il punto che resta sempre visibile quando viene ritagliata (copertine e anteprime).</p>
-      <div class="btns"><button type="button" class="btn sm" id="ecov">Usa come cover di “${esc(catName(p.category))}”</button><button type="button" class="btn sm" id="ehero">Usa come copertina della home</button><button type="button" class="btn sm" id="efr">Reimposta punto</button></div>
+      <div class="btns"><button type="button" class="btn sm" id="ecov">Usa come cover di “${esc(catName(p.category))}”</button><button type="button" class="btn sm" id="efr">Reimposta punto</button></div>
       <div class="btns" style="margin-top:22px;justify-content:flex-end"><button type="button" class="btn" id="ecl">Chiudi</button><button type="button" class="btn pri" id="eok">Salva</button></div>
     </form></div>`;
     $('#pvimg').onclick = e => { const r = e.target.getBoundingClientRect(); p.focus = `${Math.round((e.clientX - r.left) / r.width * 100)}% ${Math.round((e.clientY - r.top) / r.height * 100)}%`; keep(); draw(); };
     $('#efr').onclick = () => { delete p.focus; keep(); draw(); };
     $('#ec').onchange = e => { keep(); p.category = e.target.value; p.sub = ''; draw(); };
     $('#ecov').onclick = () => { keep(); data.categories.find(c => c.id === p.category).cover = p.id; toast('Cover categoria impostata'); };
-    $('#ehero').onclick = () => { keep(); data.site.hero = p.id; toast('Copertina home impostata'); };
     $('#ecl').onclick = () => { keep(); dlg.close(); };
     $('#eok').onclick = () => { keep(); dlg.close(); };
   };
@@ -285,7 +284,7 @@ function paneProfilo() {
   const F = (k, l, ta) => `<label class="f"><span>${l}</span>${ta ? `<textarea data-k="${k}">${esc(s[k] || '')}</textarea>` : `<input type="text" data-k="${k}" value="${esc(s[k] || '')}">`}</label>`;
   const opts = data.photos.map(p => `<option value="${esc(p.id)}" ${p.id === ip.photo ? 'selected' : ''}>${esc(catName(p.category))} · ${esc(p.title || p.id)}${pending[p.id] ? ' (nuova)' : ''}</option>`).join('');
   const prev = () => { const p = data.photos.find(x => x.id === ip.photo); return p ? `<img src="${esc(thumbSrc(p))}" alt="" style="width:110px;height:110px;object-fit:cover;border-radius:12px;margin-bottom:12px">` : ''; };
-  $('#pane').innerHTML = `<div class="cat" style="max-width:640px">${F('name', 'Nome')}${F('headline', 'Titolo grande in home')}${F('tagline', 'Sottotitolo')}${F('aboutTitle', 'Titolo sezione “Chi sono”')}${F('about', 'Testo “Chi sono”', 1)}
+  $('#pane').innerHTML = `<div class="cat" style="max-width:640px">${F('name', 'Nome')}<label class="f"><span>Testi che ruotano in home (uno per riga, nel formato: Titolo | Sottotitolo). Puoi usare {anni} per gli anni dal 2022.</span><textarea data-ht style="min-height:170px">${esc((Array.isArray(s.heroTexts) ? s.heroTexts : []).join('\n'))}</textarea></label><label class="f"><span>Secondi tra un cambio e l'altro (da 4 a 30)</span><input type="text" data-hs value="${esc(s.heroSeconds || 8)}"></label><p class="hint" style="margin:-6px 0 14px">Lascia vuoto il campo dei testi per usare quelli predefiniti. Le foto in home cambiano da sole in modo casuale.</p>${F('aboutTitle', 'Titolo sezione “Chi sono”')}${F('about', 'Testo “Chi sono”', 1)}
     ${F('instagram', 'Link Instagram')}${F('tiktok', 'Link TikTok')}</div>
     <div class="cat" style="max-width:640px"><h3 style="font-size:1.3rem;margin-bottom:6px">Ultimo post Instagram</h3>
       <p class="hint" style="margin-bottom:14px">Sul sito compare una piccola card per qualche secondo, poi scompare (una volta a visita). Quando pubblichi un nuovo post su Instagram, aggiorna qui link e foto.</p>
@@ -296,6 +295,8 @@ function paneProfilo() {
       <label class="f"><span>Testo breve (facoltativo)</span><input type="text" data-ip="caption" value="${esc(ip.caption)}" maxlength="90" placeholder="es. Nuovo scatto da Monza"></label></div>`;
   $('#pane').oninput = e => {
     const k = e.target.dataset.k, i = e.target.dataset.ip;
+    if (e.target.matches('[data-ht]')) { s.heroTexts = e.target.value.split('\n').map(t => t.trim()).filter(Boolean); mark(); }
+    if (e.target.matches('[data-hs]')) { s.heroSeconds = Math.min(30, Math.max(4, parseInt(e.target.value, 10) || 8)); mark(); }
     if (k) { s[k] = e.target.value; mark(); }
     if (i) { ip[i] = i === 'enabled' ? e.target.checked : e.target.value; if (i === 'photo') $('#igprev').innerHTML = prev(); mark(); }
   };

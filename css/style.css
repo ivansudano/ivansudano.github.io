@@ -60,8 +60,15 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em;line-hei
 
 /* HERO */
 .hero{position:relative;height:100svh;min-height:560px;overflow:hidden;display:flex;align-items:flex-end}
-.hero-img{position:absolute;inset:-6% 0 -6% 0;width:100%;height:112%;object-fit:cover;object-position:var(--focus,50% 50%);will-change:transform;animation:heroIn 2.2s var(--ease) both}
-@keyframes heroIn{from{opacity:0;transform:scale(1.08)}to{opacity:1;transform:scale(1)}}
+.hero-bg{position:absolute;inset:-6% 0;will-change:transform}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.3s ease}
+.hero-img.on{opacity:1}
+.ht{transition:opacity .45s ease,transform .45s ease}
+.ht.out{opacity:0;transform:translateY(10px)}
+.dots{display:flex;gap:8px;margin-top:26px}
+.dots button{width:26px;height:14px;position:relative}
+.dots button::after{content:"";position:absolute;left:0;right:0;top:6px;height:2px;border-radius:2px;background:rgba(255,255,255,.28);transition:background .3s}
+.dots button.on::after,.dots button:hover::after{background:var(--accent)}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,11,12,.55),rgba(11,11,12,0) 60%),linear-gradient(180deg,rgba(11,11,12,.55) 0%,rgba(11,11,12,0) 28%,rgba(11,11,12,.2) 55%,rgba(11,11,12,.96) 100%)}
 .hero-inner{position:relative;z-index:2;width:100%;padding-bottom:clamp(40px,9vh,96px)}
 .hero h1{font-size:clamp(2.6rem,7vw,6rem);margin:14px 0 18px;max-width:12ch;animation:rise 1.2s .35s var(--ease) both}
@@ -184,7 +191,7 @@ footer a:hover{color:#fff}
 /* HERO su telefono: la foto si vede intera, non tagliata */
 @media(max-width:700px){
   .hero{background:var(--bg);display:flex;flex-direction:column;justify-content:flex-start;height:auto;min-height:0;padding-top:76px;overflow:hidden}
-  .hero-img{position:relative;inset:auto;display:block;width:100%;height:auto;aspect-ratio:var(--ar);max-height:62svh;object-fit:cover;object-position:var(--focus,50% 50%);-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}
+  .hero-bg{position:relative;inset:auto;width:100%;aspect-ratio:3/2;max-height:62svh;-webkit-mask-image:linear-gradient(#000 78%,transparent);mask-image:linear-gradient(#000 78%,transparent)}
   .hero::after{background:linear-gradient(180deg,rgba(11,11,12,.5) 0,rgba(11,11,12,0) 14%)}
   .hero-inner{margin-top:-28px;padding-bottom:40px}
   .hero h1{font-size:2.6rem;margin:10px 0 12px}
@@ -211,4 +218,4 @@ footer a:hover{color:#fff}
 
 /* Anti-salvataggio: niente trascinamento, niente menu "salva immagine" con tocco prolungato */
 img{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
-.ph img,.card img,.proj img,.hero-img,.lb img,.igc img{pointer-events:none}
+.ph img,.card img,.proj img,.hero-img,.hero-bg,.lb img,.igc img{pointer-events:none}

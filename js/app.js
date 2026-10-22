@@ -68,7 +68,7 @@ addEventListener('scroll', () => {
   nav.classList.toggle('solid', y > 40);
   nav.classList.toggle('hide', y > lastY && y > 400 && !menu.classList.contains('open') && !$('#lb').classList.contains('open'));
   lastY = y;
-  const hi = $('.hero-img'); if (hi && y < innerHeight) hi.style.transform = `translateY(${y * .18}px)`;
+  const hi = $('.hero-bg'); if (hi && y < innerHeight && innerWidth > 700) hi.style.transform = `translateY(${y * .18}px)`;
 }, {passive: true});
 
 /* ---------- reveal / lazy ---------- */
@@ -83,7 +83,7 @@ function arm(root) {
 
 /* ---------- views ---------- */
 function home() {
-  const s = D.site, hero = byId[s.hero] || D.photos[0];
+  const s = D.site;
   const cats = D.categories.filter(c => catPhotos(c.id).length);
   const n = cats.length;
   const cards = cats.map((c, i) => {
@@ -108,13 +108,13 @@ function home() {
       <div class="info"><span class="eyebrow">${esc(c.name)} · ${l.length} foto</span><h3>${esc(sb.name)}</h3>${sb.description ? `<p>${esc(sb.description)}</p>` : ''}<span class="go">Guarda il progetto →</span></div></a>`).join('') +
     `</div></div></section>` : '';
   view.innerHTML = `
-  <section class="hero" style="--ar:${hero.w}/${hero.h};${hero.focus ? `--focus:${esc(hero.focus)}` : ""}">
-    <img class="hero-img" src="${esc(hero.src)}" alt="" fetchpriority="high">
+  <section class="hero">
+    <div class="hero-bg"><img class="hero-img on" alt="" fetchpriority="high"><img class="hero-img" alt=""></div>
     <div class="wrap hero-inner">
       <span class="eyebrow">@${esc(hdl(s.instagram))}</span>
-      <h1>${esc(s.headline || s.name)}</h1>
-      <p class="tag">${esc(s.tagline)}</p>
+      <div class="ht"><h1></h1><p class="tag"></p></div>
       <div class="cta"><a class="btn" href="#portfolio" data-scroll>Esplora il portfolio ${ARROW}</a><a class="btn ghost" href="#/c/all">Tutte le foto</a></div>
+      <div class="dots" role="tablist" aria-label="Presentazione"></div>
     </div><div class="cue"></div>
   </section>
   <section class="block" id="portfolio"><div class="wrap"><div class="head"><h2>Portfolio</h2><span class="meta">${D.photos.length} fotografie</span></div><div class="cats">${cards}</div></div></section>
@@ -125,6 +125,7 @@ function home() {
       <a href="${esc(s.instagram)}" target="_blank" rel="noopener"><span>Instagram<small>@${esc(hdl(s.instagram))}</small></span>${IG}</a>
       <a href="${esc(s.tiktok)}" target="_blank" rel="noopener"><span>TikTok<small>@${esc(hdl(s.tiktok))}</small></span>${TT}</a>
     </div></div></section>`;
+  startHero();
   const sc = view.querySelector('[data-scroll]');
   sc.onclick = e => { e.preventDefault(); $('#portfolio').scrollIntoView({behavior: 'smooth'}); };
   document.title = `${s.name} · Fotografia`;
@@ -165,9 +166,58 @@ function notFound() {
   view.innerHTML = `<section class="page"><div class="wrap"><h1>Pagina non trovata</h1><p class="sub"><a href="#/" style="color:var(--accent)">Torna alla home</a></p></div></section>`;
 }
 
+
+/* ---------- home: foto casuali che cambiano da sole + testi di presentazione ---------- */
+const HERO_TEXTS = [
+  'Ivan Sudano | Fotografo, classe 2005.',
+  'Fotografo dal 2022 | Da {anni} anni scatto ogni volta che posso.',
+  'Auto, ritratti e natura | Con qualche scatto di architettura e street.',
+  'Monza GT Open | Ho fotografato le gare da bordo pista.',
+  'Lavoriamo insieme? | Scrivimi su Instagram per shooting e collaborazioni.'
+];
+let heroTimer = null, heroStop = null;
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const k = Math.floor(Math.random() * (i + 1)); [a[i], a[k]] = [a[k], a[i]]; } return a; };
+function stopHero() { clearTimeout(heroTimer); heroTimer = null; if (heroStop) { heroStop(); heroStop = null; } }
+function startHero() {
+  const root = $('.hero'); if (!root) return;
+  const s = D.site;
+  const lines = (Array.isArray(s.heroTexts) && s.heroTexts.length ? s.heroTexts : HERO_TEXTS).map(t => {
+    const [a, ...b] = String(t).split('|'); const f = x => x.replace(/\{anni\}/g, Math.max(1, new Date().getFullYear() - 2022)).trim();
+    return {h: f(a), p: f(b.join('|'))};
+  });
+  let land = D.photos.filter(p => p.w / p.h >= 1.3);
+  if (land.length < 3) land = D.photos.slice();
+  let queue = shuffle(land), qi = 0, last = null, ti = 0;
+  const nextPhoto = () => { if (qi >= queue.length) { queue = shuffle(land); if (queue[0] === last && queue.length > 1) queue.push(queue.shift()); qi = 0; } last = queue[qi++]; return last; };
+  const imgs = [...root.querySelectorAll('.hero-img')], ht = $('.ht', root), h1 = $('h1', ht), pt = $('.tag', ht), dots = $('.dots', root);
+  let cur = 0;
+  const setImg = (el, p) => { el.src = p.src; el.style.objectPosition = p.focus || '50% 50%'; };
+  const setText = i => { h1.textContent = lines[i].h; pt.textContent = lines[i].p; dots.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i)); };
+  dots.innerHTML = lines.length > 1 ? lines.map((_, i) => `<button role="tab" aria-label="Testo ${i + 1}"></button>`).join('') : '';
+  setImg(imgs[0], nextPhoto()); setText(0);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const secs = Math.min(30, Math.max(4, Number(s.heroSeconds) || 8));
+  let visible = true;
+  const step = (toText) => {
+    const p = nextPhoto(), nxt = imgs[1 - cur], pre = new Image();
+    pre.onload = pre.onerror = () => {
+      setImg(nxt, p); nxt.classList.add('on'); imgs[cur].classList.remove('on'); cur = 1 - cur;
+      ht.classList.add('out');
+      setTimeout(() => { ti = toText ?? (ti + 1) % lines.length; setText(ti); ht.classList.remove('out'); }, 450);
+    };
+    pre.src = p.src;
+  };
+  const loop = () => { heroTimer = setTimeout(() => { if (visible && !document.hidden) step(); loop(); }, secs * 1000); };
+  dots.onclick = e => { const b = e.target.closest('button'); if (!b) return; const i = [...dots.children].indexOf(b); clearTimeout(heroTimer); step(i); if (!reduce && lines.length) loop(); };
+  const io2 = new IntersectionObserver(es => { visible = es[0].isIntersecting; }, {threshold: .2}); io2.observe(root);
+  heroStop = () => io2.disconnect();
+  if (!reduce) loop();
+}
+
 /* ---------- router ---------- */
 let lastCat = null;
 function route() {
+  stopHero();
   if (lbOpen()) closeLB(true);
   toggleMenu(false);
   const h = location.hash || '#/';
