@@ -171,7 +171,7 @@ function notFound() {
 const HERO_TEXTS = [
   'Ivan Sudano | Fotografo, classe 2005.',
   'Fotografo dal 2022 | Da {anni} anni scatto ogni volta che posso.',
-  'Auto, ritratti e natura | Con qualche scatto di architettura e street.',
+  'Auto, ritratti, natura e urban | Con qualche scatto di architettura.',
   'Monza GT Open | Ho fotografato le gare da bordo pista. | monza-gt-open',
   'Lavoriamo insieme? | Scrivimi su Instagram per shooting e collaborazioni.'
 ];
