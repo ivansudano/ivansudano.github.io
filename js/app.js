@@ -172,7 +172,7 @@ const HERO_TEXTS = [
   'Ivan Sudano | Fotografo, classe 2005.',
   'Fotografo dal 2022 | Da {anni} anni scatto ogni volta che posso.',
   'Auto, ritratti e natura | Con qualche scatto di architettura e street.',
-  'Monza GT Open | Ho fotografato le gare da bordo pista.',
+  'Monza GT Open | Ho fotografato le gare da bordo pista. | monza-gt-open',
   'Lavoriamo insieme? | Scrivimi su Instagram per shooting e collaborazioni.'
 ];
 let heroTimer = null, heroStop = null;
@@ -181,34 +181,45 @@ function stopHero() { clearTimeout(heroTimer); heroTimer = null; if (heroStop) {
 function startHero() {
   const root = $('.hero'); if (!root) return;
   const s = D.site;
+  const anni = Math.max(1, new Date().getFullYear() - 2022);
   const lines = (Array.isArray(s.heroTexts) && s.heroTexts.length ? s.heroTexts : HERO_TEXTS).map(t => {
-    const [a, ...b] = String(t).split('|'); const f = x => x.replace(/\{anni\}/g, Math.max(1, new Date().getFullYear() - 2022)).trim();
-    return {h: f(a), p: f(b.join('|'))};
+    const [h = '', p = '', tag = ''] = String(t).split('|').map(x => x.replace(/\{anni\}/g, anni).trim());
+    return {h, p, tag};
   });
-  let land = D.photos.filter(p => p.w / p.h >= 1.3);
-  if (land.length < 3) land = D.photos.slice();
-  let queue = shuffle(land), qi = 0, last = null, ti = 0;
-  const nextPhoto = () => { if (qi >= queue.length) { queue = shuffle(land); if (queue[0] === last && queue.length > 1) queue.push(queue.shift()); qi = 0; } last = queue[qi++]; return last; };
+  // Foto: se il testo e' legato a una categoria/progetto (terzo campo), escono solo le sue foto.
+  const bags = {}; let last = null;
+  const pool = tag => {
+    const all = tag ? D.photos.filter(p => p.category === tag || p.sub === tag) : D.photos;
+    const base = all.length ? all : D.photos;
+    const land = base.filter(p => p.w / p.h >= 1.3);
+    return land.length >= (tag ? 1 : 3) ? land : base;
+  };
+  const pick = tag => {
+    const k = tag || '*';
+    if (!bags[k] || !bags[k].length) { bags[k] = shuffle(pool(tag)); if (bags[k].length > 1 && bags[k][bags[k].length - 1] === last) bags[k].unshift(bags[k].pop()); }
+    last = bags[k].pop(); return last;
+  };
   const imgs = [...root.querySelectorAll('.hero-img')], ht = $('.ht', root), h1 = $('h1', ht), pt = $('.tag', ht), dots = $('.dots', root);
-  let cur = 0;
+  let cur = 0, ti = 0;
   const setImg = (el, p) => { el.src = p.src; el.style.objectPosition = p.focus || '50% 50%'; };
   const setText = i => { h1.textContent = lines[i].h; pt.textContent = lines[i].p; dots.querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === i)); };
   dots.innerHTML = lines.length > 1 ? lines.map((_, i) => `<button role="tab" aria-label="Testo ${i + 1}"></button>`).join('') : '';
-  setImg(imgs[0], nextPhoto()); setText(0);
+  setImg(imgs[0], pick(lines[0].tag)); setText(0);
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const secs = Math.min(30, Math.max(4, Number(s.heroSeconds) || 8));
   let visible = true;
-  const step = (toText) => {
-    const p = nextPhoto(), nxt = imgs[1 - cur], pre = new Image();
+  const step = next => {
+    next = next ?? (ti + 1) % lines.length;
+    const p = pick(lines[next].tag), nxt = imgs[1 - cur], pre = new Image();
     pre.onload = pre.onerror = () => {
       setImg(nxt, p); nxt.classList.add('on'); imgs[cur].classList.remove('on'); cur = 1 - cur;
       ht.classList.add('out');
-      setTimeout(() => { ti = toText ?? (ti + 1) % lines.length; setText(ti); ht.classList.remove('out'); }, 450);
+      setTimeout(() => { ti = next; setText(ti); ht.classList.remove('out'); }, 450);
     };
     pre.src = p.src;
   };
   const loop = () => { heroTimer = setTimeout(() => { if (visible && !document.hidden) step(); loop(); }, secs * 1000); };
-  dots.onclick = e => { const b = e.target.closest('button'); if (!b) return; const i = [...dots.children].indexOf(b); clearTimeout(heroTimer); step(i); if (!reduce && lines.length) loop(); };
+  dots.onclick = e => { const b = e.target.closest('button'); if (!b) return; const i = [...dots.children].indexOf(b); clearTimeout(heroTimer); step(i); if (!reduce) loop(); };
   const io2 = new IntersectionObserver(es => { visible = es[0].isIntersecting; }, {threshold: .2}); io2.observe(root);
   heroStop = () => io2.disconnect();
   if (!reduce) loop();
