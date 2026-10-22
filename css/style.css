@@ -208,3 +208,7 @@ footer a:hover{color:#fff}
 .igc:hover .bar{animation-play-state:paused}
 @keyframes igbar{to{transform:scaleX(0)}}
 @media(max-width:560px){.igc{left:12px;right:12px;width:auto;bottom:calc(12px + env(safe-area-inset-bottom))}}
+
+/* Anti-salvataggio: niente trascinamento, niente menu "salva immagine" con tocco prolungato */
+img{-webkit-user-drag:none;user-drag:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.ph img,.card img,.proj img,.hero-img,.lb img,.igc img{pointer-events:none}

@@ -253,6 +253,10 @@ function igCard() {
   setTimeout(() => requestAnimationFrame(() => el.classList.add('show')), 3500);
 }
 
+/* ---------- protezione base contro il salvataggio delle foto ---------- */
+document.addEventListener('contextmenu', e => { if (e.target.closest('img,.ph,.card,.proj,.hero,.lb')) e.preventDefault(); });
+document.addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+
 /* ---------- start ---------- */
 load().then(() => { chrome(); route(); igCard(); }).catch(err => {
   view.innerHTML = '<section class="page"><div class="wrap"><h1>Ops</h1><p class="sub">Non riesco a caricare le foto. Riprova tra poco.</p></div></section>'; console.error(err);
